@@ -27,75 +27,39 @@
 </header>
 
 <main class="page-shell">
-    <section class="hero" id="today">
-        <div>
-            <p class="eyebrow">Quiet planning for clear days</p>
-            <h1>今日やることを、静かに整える。</h1>
-            <p class="lead">
-                大きな予定も小さな用事も、ひとつの美しいリストへ。余白のある画面で、次に進むためのTodoだけに集中できます。
-            </p>
-            <div class="hero-meta" aria-label="Todo summary">
-                <span class="pill">Daily focus</span>
-                <span class="pill">Minimal workflow</span>
-                <span class="pill">Spring Boot + Thymeleaf</span>
-            </div>
-        </div>
-
+    <section class="todo-wrap" id="today">
         <section class="todo-panel" id="tasks" aria-labelledby="task-panel-title">
             <div class="panel-header">
                 <div>
                     <p class="panel-kicker">Workspace</p>
-                    <h2 class="panel-title" id="task-panel-title">Today's Todo</h2>
+                    <h2 class="panel-title" id="task-panel-title">Tasks</h2>
                 </div>
-                <span class="task-count" th:text="${todos != null ? #lists.size(todos) : 3}">3</span>
+                <span class="task-count" th:text="${tasks != null ? #lists.size(tasks) : 0}">0</span>
             </div>
 
-            <form class="todo-form" id="new-task" th:action="@{/todos}" method="post">
-                <input class="todo-input" type="text" name="title" placeholder="新しいTodoを入力" autocomplete="off" required>
-                <button class="add-button" type="submit">Add Todo</button>
-            </form>
+            <table class="task-table" th:if="${tasks != null and !#lists.isEmpty(tasks)}">
+                <thead>
+                    <tr>
+                        <th scope="col">Task</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="task : ${tasks}">
+                        <td th:text="${task.content}">content</td>
+                    </tr>
+                </tbody>
+            </table>
 
-            <ul class="todo-list" th:if="${todos != null and !#lists.isEmpty(todos)}">
-                <li class="todo-item" th:each="todo : ${todos}">
-                    <span class="check-dot" aria-hidden="true"></span>
-                    <span class="todo-copy">
-                        <span class="todo-title" th:text="${todo}">Todo title</span>
-                        <span class="todo-note">Added to your focused list</span>
-                    </span>
-                    <span class="tag">Today</span>
-                </li>
-            </ul>
-
-            <ul class="todo-list" th:unless="${todos != null and !#lists.isEmpty(todos)}">
-                <li class="todo-item">
-                    <span class="check-dot" aria-hidden="true"></span>
-                    <span class="todo-copy">
-                        <span class="todo-title">UIデザインを整える</span>
-                        <span class="todo-note">ヘッダー、フォント、フォームの雰囲気を統一</span>
-                    </span>
-                    <span class="tag">Design</span>
-                </li>
-                <li class="todo-item">
-                    <span class="check-dot" aria-hidden="true"></span>
-                    <span class="todo-copy">
-                        <span class="todo-title">Controllerに保存処理を追加</span>
-                        <span class="todo-note">POST /todos で入力内容を受け取る</span>
-                    </span>
-                    <span class="tag">Backend</span>
-                </li>
-                <li class="todo-item">
-                    <span class="check-dot" aria-hidden="true"></span>
-                    <span class="todo-copy">
-                        <span class="todo-title">完了状態の切り替えを作る</span>
-                        <span class="todo-note">チェック済みTodoを見分けられるようにする</span>
-                    </span>
-                    <span class="tag">Next</span>
-                </li>
-            </ul>
+            <p class="empty-state" th:unless="${tasks != null and !#lists.isEmpty(tasks)}">
+                No tasks yet.
+            </p>
         </section>
     </section>
 
-    <p class="footer-note" id="focus">Built for calm focus, warm typography, and a clean daily rhythm.</p>
+    <form class="task-input-form" method="post" action="/add/0" th:action="@{/add/{id}}" th:object="${TaskForm}">
+        <input class="task-input" type="text" name="name" th:field="*{content}" placeholder="Enter your task." autocomplete="off" required>
+        <button class="task-submit-button" type="submit">Add</button>
+    </form>
 </main>
 </body>
 </html>
