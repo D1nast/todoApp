@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Atelier</title>
+    <link rel="stylesheet" th:href="@{/css/layout.css}" href="/css/layout.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+</head>
+<body>
+<header class="site-header">
+    <div class="header-inner">
+        <a class="brand" href="/">
+            <span class="brand-mark">T</span>
+            <span>Todo Atelier</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary navigation">
+            <a href="#today">Today</a>
+            <a href="#tasks">Tasks</a>
+            <a href="#focus">Focus</a>
+        </nav>
+        <div class="header-actions">
+            <a class="ghost-button" href="#tasks">View tasks</a>
+            <a class="primary-button" href="#new-task">New task</a>
+        </div>
+    </div>
+</header>
+
+<main class="page-shell">
+    <section class="hero" id="today">
+        <div>
+            <p class="eyebrow">Quiet planning for clear days</p>
+            <h1>今日やることを、静かに整える。</h1>
+            <p class="lead">
+                大きな予定も小さな用事も、ひとつの美しいリストへ。余白のある画面で、次に進むためのTodoだけに集中できます。
+            </p>
+            <div class="hero-meta" aria-label="Todo summary">
+                <span class="pill">Daily focus</span>
+                <span class="pill">Minimal workflow</span>
+                <span class="pill">Spring Boot + Thymeleaf</span>
+            </div>
+        </div>
+
+        <section class="todo-panel" id="tasks" aria-labelledby="task-panel-title">
+            <div class="panel-header">
+                <div>
+                    <p class="panel-kicker">Workspace</p>
+                    <h2 class="panel-title" id="task-panel-title">Today's Todo</h2>
+                </div>
+                <span class="task-count" th:text="${todos != null ? #lists.size(todos) : 3}">3</span>
+            </div>
+
+            <form class="todo-form" id="new-task" th:action="@{/todos}" method="post">
+                <input class="todo-input" type="text" name="title" placeholder="新しいTodoを入力" autocomplete="off" required>
+                <button class="add-button" type="submit">Add Todo</button>
+            </form>
+
+            <ul class="todo-list" th:if="${todos != null and !#lists.isEmpty(todos)}">
+                <li class="todo-item" th:each="todo : ${todos}">
+                    <span class="check-dot" aria-hidden="true"></span>
+                    <span class="todo-copy">
+                        <span class="todo-title" th:text="${todo}">Todo title</span>
+                        <span class="todo-note">Added to your focused list</span>
+                    </span>
+                    <span class="tag">Today</span>
+                </li>
+            </ul>
+
+            <ul class="todo-list" th:unless="${todos != null and !#lists.isEmpty(todos)}">
+                <li class="todo-item">
+                    <span class="check-dot" aria-hidden="true"></span>
+                    <span class="todo-copy">
+                        <span class="todo-title">UIデザインを整える</span>
+                        <span class="todo-note">ヘッダー、フォント、フォームの雰囲気を統一</span>
+                    </span>
+                    <span class="tag">Design</span>
+                </li>
+                <li class="todo-item">
+                    <span class="check-dot" aria-hidden="true"></span>
+                    <span class="todo-copy">
+                        <span class="todo-title">Controllerに保存処理を追加</span>
+                        <span class="todo-note">POST /todos で入力内容を受け取る</span>
+                    </span>
+                    <span class="tag">Backend</span>
+                </li>
+                <li class="todo-item">
+                    <span class="check-dot" aria-hidden="true"></span>
+                    <span class="todo-copy">
+                        <span class="todo-title">完了状態の切り替えを作る</span>
+                        <span class="todo-note">チェック済みTodoを見分けられるようにする</span>
+                    </span>
+                    <span class="tag">Next</span>
+                </li>
+            </ul>
+        </section>
+    </section>
+
+    <p class="footer-note" id="focus">Built for calm focus, warm typography, and a clean daily rhythm.</p>
+</main>
+</body>
+</html>
