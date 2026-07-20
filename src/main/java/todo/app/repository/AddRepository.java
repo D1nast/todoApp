@@ -1,5 +1,10 @@
 package  todo.app.repository;
 
+import todo.app.entity.Task;
+
+import java.util.List;
+
 public interface AddRepository {
-    public void add(Integer id, String content);
+    public List<Task> getTasks();
+    public void add(Task task);
 }

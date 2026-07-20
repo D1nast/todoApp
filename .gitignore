@@ -36,6 +36,9 @@ out/
 ### VS Code ###
 .vscode/
 
-###
+### 自身で追加
 memo.md
 src/main/resources/application.properties
+src/main/resources/message.properties
+src/main/resources/data.sql
+src/main/resources/schema.sql
