@@ -14,11 +14,6 @@
             <span class="brand-mark">T</span>
             <span>Todo Atelier</span>
         </a>
-        <nav class="nav-links" aria-label="Primary navigation">
-            <a href="#today">Today</a>
-            <a href="#tasks">Tasks</a>
-            <a href="#focus">Focus</a>
-        </nav>
         <div class="header-actions">
             <a class="ghost-button" href="#tasks">View tasks</a>
             <a class="primary-button" href="#new-task">New task</a>
@@ -38,11 +33,6 @@
             </div>
 
             <table class="task-table" th:if="${tasks != null and !#lists.isEmpty(tasks)}">
-                <thead>
-                    <tr>
-                        <th scope="col">Task</th>
-                    </tr>
-                </thead>
                 <tbody>
                     <tr th:each="task : ${tasks}">
                         <td th:text="${task.content}">content</td>
@@ -56,8 +46,9 @@
         </section>
     </section>
 
-    <form class="task-input-form" method="post" action="/add/0" th:action="@{/add/{id}}" th:object="${TaskForm}">
+    <form class="task-input-form" method="post" action="index.html" th:action="@{/add}" th:object="${taskForm}">
         <input class="task-input" type="text" name="name" th:field="*{content}" placeholder="Enter your task." autocomplete="off" required>
+        <div th:errors="*{content}"></div>
         <button class="task-submit-button" type="submit">Add</button>
     </form>
 </main>
