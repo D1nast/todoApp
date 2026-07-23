@@ -17,3 +17,7 @@
 - Thymeleaf
 - Spring Security
 - Spring Web
+- Spring Session
+
+
+
