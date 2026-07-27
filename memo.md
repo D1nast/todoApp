@@ -37,17 +37,29 @@ Spring Security
         Set up Spring Securityに記載あり
             https://spring.io/guides/gs/securing-web
 
+application.properties
+    https://docs.spring.io/spring-boot/reference/features/external-config.html#features.external-config.files.profile-specific
+    applicationの後ろに環境名つければ環境に応じた変数を読み込める
+
 SpringSessionを使いたい
-    https://docs.spring.io/spring-session/reference/configuration/jdbc.html
+    https://docs.spring.io/spring-session/reference/guides/boot-jdbc.html#httpsession-jdbc-boot-sample
+    依存関係を追加すれば自動設定してくれる
     分散化されたDBでもSessionを使える
     DBにセッション情報を保持したいから
         冗長構成を考慮に入れたログイン機能を作りたい
     ローカルはH2を使用
         dependencyに追加するだけで自動設定してくれる
         https://docs.spring.io/spring-session/reference/guides/boot-jdbc.html?utm_source=chatgpt.com
-Spring Sessionを聞かせるところから。
-現在ローカルで個別に作ったDBが邪魔しているのか、H2に接続できていないし
-セッションテーブルできていない
+
 
 userDetailServiceとuserDetailsがユーザー情報をインメモリで保持する
-    
+
+IDとパスワード入れてもログインできない
+    H2のデータベースができていない
+    Spring Securityのデフォルトログインページのメソッドに問題がある
+
+
+SchemaとdataにあるDBができていない
+    認証情報が一致しないから
+    userはmainメソッドがあるクラスで定義しているから参照できる
+    DBのものはUserDetailsに保持出来ていないから接続できない
