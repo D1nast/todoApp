@@ -1,10 +1,6 @@
 # アプリケーション起動
  ./gradlew bootRun
 
-# 機能開発順番
-Supabaseにデプロイ
-　SpringSecurityの対応
-
 # 課題
 タスク追加時のバリデーションエラー
 　パスaddに遷移した後にバリデーションメッセージ
@@ -44,6 +40,7 @@ application.properties
 SpringSessionを使いたい
     https://docs.spring.io/spring-session/reference/guides/boot-jdbc.html#httpsession-jdbc-boot-sample
     依存関係を追加すれば自動設定してくれる
+    デフォルトがHttpSessionで、それを自動でSpringSessionに代替してくれる
     分散化されたDBでもSessionを使える
     DBにセッション情報を保持したいから
         冗長構成を考慮に入れたログイン機能を作りたい
@@ -58,8 +55,27 @@ IDとパスワード入れてもログインできない
     H2のデータベースができていない
     Spring Securityのデフォルトログインページのメソッドに問題がある
 
+SpringSecurity導入
+    SpringSecurityでのログイン
+        SpringSession導入
+            SpringSessionでのログイン
 
-SchemaとdataにあるDBができていない
-    認証情報が一致しないから
-    userはmainメソッドがあるクラスで定義しているから参照できる
-    DBのものはUserDetailsに保持出来ていないから接続できない
+
+
+デフォルトがHttpSessionで、それを自動でSpringSessionに代替してくれる 
+    Sessionごとにユーザー情報を保持するのがUserDetails
+
+
+# 認証機能
+SecurityConfigがSpringSecurity設定
+コードの書き方は公式ドキュメントを参照
+https://spring.io/guides/gs/securing-web
+
+恐らく、/loginで入力されたID・PASSと、UserDetailsServiceの情報をDAOがチェックしている
+https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/dao-authentication-provider.html#servlet-authentication-daoauthenticationprovider
+
+# DB
+## ローカル環境
+H2データベースを使用
+公式サイトではクラスが記載されているが、ローカルであるため参考書籍「作って学ぶSpringBoot入門」ページ64ページを参考
+https://docs.spring.io/spring-framework/reference/data-access/jdbc/embedded-database-support.html

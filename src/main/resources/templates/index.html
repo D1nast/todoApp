@@ -34,8 +34,15 @@
 
             <table class="task-table" th:if="${tasks != null and !#lists.isEmpty(tasks)}">
                 <tbody>
-                    <tr th:each="task : ${tasks}">
-                        <td th:text="${task.content}">content</td>
+                    <tr th:each="task : ${tasks}" th:object="${task}">
+                        <td class="task-id" th:text="*{id}">
+                        <td th:text="*{content}">content</td>
+                        <td><a href="/" th:href="@{'/task/' + *{id} }">edit</a></td>
+                        <td>
+                            <form method="post" action="index.html" th:action="@{'/task/delete/' + *{id}}">
+                                <button>Delete</button>  
+                            </form>    
+                        </td>
                     </tr>
                 </tbody>
             </table>

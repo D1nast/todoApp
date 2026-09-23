@@ -131,6 +131,9 @@ h1 {
     font-size: 0.98rem;
     font-weight: 800;
 }
+.task-table td:first-child {
+    display: none;
+}
 
 .task-table tbody tr:last-child td {
     border-bottom: 0;
