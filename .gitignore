@@ -37,7 +37,8 @@ out/
 .vscode/
 
 ### 自身で追加
-memo.md
+note.md
+task.md
 src/main/resources/application.properties
 src/main/resources/application-prd.properties
 src/main/resources/message.properties
