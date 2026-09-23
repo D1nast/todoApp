@@ -11,6 +11,8 @@ import todo.app.entity.Task;
 import todo.app.form.TaskForm;
 import todo.app.service.AddService;
 import todo.app.service.DeleteTask;
+import todo.app.service.EditTask;
+import todo.app.service.GetTask;
 
 import java.util.List;
 
@@ -18,10 +20,14 @@ import java.util.List;
 public class HomeController{
     private final AddService addService;
     private final DeleteTask deleteTask;
-
-    public HomeController(AddService addService,DeleteTask deleteTask){
+    private  final GetTask getTask;
+    private final EditTask editTask;
+    
+    public HomeController(AddService addService,DeleteTask deleteTask,GetTask getTask,EditTask editTask){
         this.addService = addService;
         this.deleteTask = deleteTask;
+        this.getTask = getTask;
+        this.editTask = editTask;
     }
     
     @GetMapping("/")
@@ -42,6 +48,21 @@ public class HomeController{
         return "redirect:/";
     }
     
+    @GetMapping("/task/{id}")
+    public String editTask(@PathVariable Integer id, Model model){
+        List<Task> task = getTask.getTaskById(id);
+        model.addAttribute("task",task);
+        model.addAttribute("taskForm",TaskForm.fromEntity(task.get(0)));
+        return "edit";
+    }
+    
+    @PostMapping("/task/edit/{id}")
+    public String editTask(@Validated TaskForm taskForm,BindingResult bindingResult,@PathVariable Integer id){
+        Task task = taskForm.toEntity(id);
+        editTask.update(task);
+        return "redirect:/";
+    }
+
     @PostMapping("/task/delete/{id}")
     public String deleteTask(@PathVariable Integer id){
         deleteTask.delete(id);
