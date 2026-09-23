@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Atelier</title>
+    <link rel="stylesheet" th:href="@{/css/layout.css}" href="/css/layout.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+</head>
+<body>
+<header class="site-header">
+    <div class="header-inner">
+        <a class="brand" href="/">
+            <span class="brand-mark">T</span>
+            <span>Todo Atelier</span>
+        </a>
+    </div>
+</header>
+
+<main class="page-shell">
+    <section class="todo-wrap" id="today">
+        <section class="todo-panel" id="tasks" aria-labelledby="task-panel-title">
+            <div class="panel-header">
+                <div>
+                    <p class="panel-kicker">Workspace</p>
+                    <h2 class="panel-title" id="task-panel-title">Edit</h2>
+                </div>
+            </div>
+
+            <form class="edit-form" method="post" action="edit.html" th:action="@{'/task/edit/' + ${task[0].id}}" th:object="${taskForm}">
+                <input class="task-input edit-input" type="text" th:field="*{content}" placeholder="Enter your task." autocomplete="off" required>
+                <p class="field-error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
+                <div class="edit-actions">
+                    <a class="ghost-button" href="index.html" th:href="@{/}">Back</a>
+                    <button class="task-submit-button" type="submit">Save</button>
+                </div>
+            </form>
+        </section>
+    </section>
+</main>
+</body>
+</html>

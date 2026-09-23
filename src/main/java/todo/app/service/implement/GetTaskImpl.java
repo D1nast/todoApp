@@ -2,9 +2,7 @@ package todo.app.service.implement;
 
 import todo.app.service.GetTask;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import  todo.app.entity.Task;
 import todo.app.repository.GetRepository;
 
