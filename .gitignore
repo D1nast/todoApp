@@ -39,8 +39,10 @@ out/
 ### 自身で追加
 note.md
 task.md
+setup.md
 src/main/resources/application.properties
 src/main/resources/application-prd.properties
 src/main/resources/message.properties
 src/main/resources/data.sql
 src/main/resources/schema.sql
+src/main/resources/spring_session.sql
