@@ -42,3 +42,4 @@ task.md
 setup.md
 src/main/resources/*.properties
 src/main/resources/*.sql
+src/test/resources/*.properties

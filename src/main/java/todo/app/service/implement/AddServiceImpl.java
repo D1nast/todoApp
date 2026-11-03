@@ -14,13 +14,7 @@ public class AddServiceImpl implements AddService {
     public AddServiceImpl(AddRepository addRepository){
         this.addRepository = addRepository;
     }
-
-    @Override
-    public List<Task> getTasks(){
-        List<Task> taskList = addRepository.getTasks();
-        return taskList;
-    }
-
+    
     @Override
     public void add(Task task){
         addRepository.add(task);

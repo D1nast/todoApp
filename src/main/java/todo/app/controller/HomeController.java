@@ -32,7 +32,7 @@ public class HomeController{
     
     @GetMapping("/")
     public String topPage(Model model){
-        List<Task> taskList = addService.getTasks();
+        List<Task> taskList = getTask.getTasks();
         model.addAttribute("tasks",taskList);
         model.addAttribute("taskForm",TaskForm.empty());
         return "index";
