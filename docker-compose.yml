@@ -2,8 +2,5 @@ services:
   todoapp:
     build:
       context: .
-      dockerfile: Dockerfile
     ports:
-      - 10000:10000 
-
-# compose-upでDockerコンテナを起動する
+      - 10000:8080
