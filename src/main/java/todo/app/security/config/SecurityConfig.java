@@ -21,14 +21,19 @@ import todo.app.security.repository.UserListRepository;
 public class SecurityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.formLogin( login -> login
+        http
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/api/create")
+                )
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/create").permitAll()
+                        .requestMatchers("/login", "/css/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .formLogin(login -> login
                         .loginPage("/login")
                         .permitAll()
                         .defaultSuccessUrl("/")
-                )
-                .authorizeHttpRequests(authz -> authz
-                        .anyRequest()
-                        .authenticated()
                 );
         return http.build();
     }

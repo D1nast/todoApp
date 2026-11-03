@@ -5,8 +5,6 @@ import todo.app.entity.Task;
 import todo.app.repository.AddRepository;
 import todo.app.service.AddService;
 
-import java.util.List;
-
 @Service
 public class AddServiceImpl implements AddService {
     private final AddRepository addRepository;
